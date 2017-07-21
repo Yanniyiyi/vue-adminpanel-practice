@@ -1,5 +1,12 @@
 import Cookies from 'js-cookie';
-import {loginByEmail, getUserInfo, logOut} from '../../api/index'
+
+// here I am using four different functions to fetch user's information
+// but there should be only two functions loginByEmail and getUserInfo 
+// the reason why I did this is I created four faked apis. 
+// In production env, the backend should response correct data based on
+// user's login info
+
+import {loginByEmailAdmin,loginByEmailEditor,getUserInfoEditor, getUserInfoAdmin, logOut} from '../../api/login'
 
 const user = {
 	state:{
@@ -13,6 +20,9 @@ const user = {
 		roles: []
 	},
 	mutations:{
+		CHANGE_PERM:(state) => {
+			state.roles = ['editor'];
+		},
 		SET_CODE: (state, code) => {
       		state.code = code;
     	},
@@ -45,39 +55,76 @@ const user = {
 	    }
 	},
 	actions:{
+		ChangePermission({commit}){
+			commit('CHANGE_PERM');
+		},
 		LoginByEmail({commit},userInfo){
 			const email = userInfo.email.trim();
 			return new Promise((resolve, reject) => {
+				if(email === 'admin@test.com'){
+					console.log('admin logged in');
+					loginByEmailAdmin(email,userInfo.passowrd).then(response => {
+						const data = response.data;
+						Cookies.set('My-Token',response.data.token);
+						commit('SET_TOKEN',data.token);
+						resolve();
+					}).catch(error => {
+						reject(error);
+					});
+				}
 
-				loginByEmail(email,userInfo.passowrd).then(response => {
-					const data = response.data;
-					Cookies.set('My-Token',response.data.token);
-					commit('SET_TOKEN',data.token);
-					resolve();
-				}).catch(error => {
-					reject(error);
-				});
+				if(email === 'editor@test.com'){
+					loginByEmailEditor(email,userInfo.passowrd).then(response => {
+						const data = response.data;
+						Cookies.set('My-Token',response.data.token);
+						commit('SET_TOKEN',data.token);
+						resolve();
+					}).catch(error => {
+						reject(error);
+					});
+				}
 
-				// if(email === 'test@admin.com'){
-				// 	Cookies.set('My-Token','admin');
-				// 	commit('SET_TOKEN','token');
-				// 	resolve();
-				// }
-				// if(email === 'test@editor.com'){
-				// 	Cookies.set('My-Token','editor');
-				// 	commit('SET_TOKEN','token');
-				// 	resolve();
-				// }
-				// if(email === 'test@developer.com'){
-				// 	Cookies.set('My-Token','developer');
-				// 	commit('SET_TOKEN','token');
-				// 	resolve();
-				// }
-				// reject("Invalid email or password");
 			});
 		},
-		GetInfo({commit, state}){
+		GetInfo({commit, state }){
+			return new Promise((resolve, reject) => {
+				// should be the below method, 
+				// getUserInfo(state.token).then((response) => {
+				// 	const data = response.data;
+				// 	commit('SET_NAME',data.name);
+				// 	commit('SET_AVATAR',data.avatar);
+				// 	commit('SET_ROLES', data.roles);
+				// 	resolve(data);
+				// }).catch((error)=>{
+				// 	reject(error);
+				// });
+				
+				// those two methods are using is because I am using fake api
+				if(state.token === 'admin'){
+					getUserInfoAdmin(state.token).then((response) => {
+						const data = response.data;
+						commit('SET_NAME',data.name);
+						commit('SET_AVATAR',data.avatar);
+						commit('SET_ROLES', data.roles);
+						resolve(data);
+					}).catch((error)=>{
+						reject(error);
+					});
+				}
 
+				if(state.token === 'editor'){
+					getUserInfoEditor(state.token).then((response) => {
+						const data = response.data;
+						commit('SET_NAME',data.name);
+						commit('SET_AVATAR',data.avatar);
+						commit('SET_ROLES', data.roles);
+						resolve(data);
+					}).catch((error)=>{
+						reject(error);
+					});
+				}
+				
+			});	
 		}
 	}
 }
