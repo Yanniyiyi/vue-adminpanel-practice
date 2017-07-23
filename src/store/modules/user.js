@@ -35,9 +35,6 @@ const user = {
 	    SET_SETTING: (state, setting) => {
 	      state.setting = setting;
 	    },
-	    SET_STATUS: (state, status) => {
-	      state.status = status;
-	    },
 	    SET_NAME: (state, name) => {
 	      state.name = name;
 	    },
@@ -47,11 +44,15 @@ const user = {
 	    SET_ROLES: (state, roles) => {
 	      state.roles = roles;
 	    },
-	    LOGIN_SUCCESS: () => {
-	      console.log('login success')
-	    },
 	    LOGOUT_USER: state => {
-	      state.user = '';
+	      	state.user='',
+			state.status='',
+			state.code = '',
+			state.token = '',
+			state.name = '',
+			state.avatar = '',
+			state.introduction ='',
+			state.roles = []
 	    }
 	},
 	actions:{
@@ -125,6 +126,18 @@ const user = {
 				}
 				
 			});	
+		},
+		LogOut({commit}){
+			return new Promise( (resolve, reject) => {
+				logOut().then( response => {
+					commit('LOGOUT_USER');
+					Cookies.remove('My-Token');
+					resolve();
+				}).catch( error => {
+					reject(error);
+				})
+			});
+
 		}
 	}
 }

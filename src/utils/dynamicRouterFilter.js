@@ -16,6 +16,6 @@ export function filterDynamicRouters(dynamicRouters, roles){
 			return true;
 		}
 		return false;
-	})
+	});
 	return allowedDynamicRouters;
 }

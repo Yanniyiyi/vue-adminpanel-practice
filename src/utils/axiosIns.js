@@ -6,12 +6,12 @@ const axiosInstance = axios.create({
   	timeout: 5000           
 })
 
-axiosInstance.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use((config) => {
     if(store.getters.token){
     	config.headers['MY-TOKEN'] = store.getters.token;
     }
     return config;
-  }, function (error) {
+  }, (error) => {
     return Promise.reject(error);
   });
 
@@ -23,13 +23,12 @@ axiosInstance.interceptors.response.use((response) => {
     // console.log(response.data);
     // const error = {message: ''};
     // if (res.code !== 200) {
-    //   error.message = 'something happened!'
+    //   error.message = 'something bad happened!'
     //   return Promise.reject(error);
     // } else {
     //   return response.data;
     // }
   }, (error) => {
-    console.dir(error);
     // Do something with response error
     return Promise.reject(error);
 });

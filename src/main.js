@@ -52,7 +52,6 @@ router.beforeEach((to, from, next) => {
 				store.dispatch('GetInfo').then((response) => {
 					// based on user info, generate dynamic routers
 					store.dispatch('GenerateDynamicRoutes', response).then((response) => {
-
 							router.addRoutes(store.getters.dynamicRouters);
 							next({ ...to });
 					}).cathc((error) => {

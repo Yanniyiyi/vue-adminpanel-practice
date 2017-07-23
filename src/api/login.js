@@ -55,13 +55,9 @@ export function getUserInfoEditor(token){
 }
 
 
-export function logout(token){
-	const data ={
-		token: token
-	}
+export function logOut(){
 	return axiosIns({
-		url:'logout_url_here',
+		url:'http://www.mocky.io/v2/5971fefb120000f704bb74aa',
 		method:'post',
-		data
 	});
 }

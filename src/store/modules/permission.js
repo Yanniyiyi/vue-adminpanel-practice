@@ -4,6 +4,7 @@ import {deepClone} from '../../utils/index';
 
 const permission = {
 	state:{
+		// for debug
 		allRouters: staticRouters,
 		dynamicRouters:''
 	},

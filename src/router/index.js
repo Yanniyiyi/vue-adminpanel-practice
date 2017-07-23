@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/login/index'
-import Home from '@/views/Home'
+import Home from '@/views/Homepage/Home'
 import Permission from '@/views/Permission'
 import NoPermission from '@/views/ErrorPages/NoPermission'
 import NotFound from '@/views/ErrorPages/NotFound'
+import Frame from '@/views/layout/Frame'
 
 
 Vue.use(Router)
@@ -13,22 +14,30 @@ Vue.use(Router)
 export const staticRouters = [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      noDropdown:true,
+      redirect:'/index',
+      component: Frame,
+      children: [{ path: 'index', component: Home, name: 'Home' }]
     },
     {
       path: '/login',
       name: 'Login',
+      hidden:true,
+      noDropdown:true,
       component: Login
     },
     {
       path: '/404',
       name: '404',
+      hidden:true,
+      noDropdown:true,
       component: NotFound
     },
     {
       path: '/401',
       name: '401',
+      hidden:true,
+      noDropdown:true,
       component: NoPermission
     }
 ];
@@ -36,12 +45,12 @@ export const staticRouters = [
 export const dynamicRouters = [
   {
     path: '/permission',
-    component: Permission,
+    component: Frame,
     redirect: '/permission/index',
-    name: 'permission',
+    name: 'Permission',
     icon: '',
     meta: { role: ['admin'] },
-    children: [{ path: 'index', component: Home, name: 'permission_test', meta: { role: ['admin'] } }]
+    children: [{ path: 'index', component: Permission, name: 'Permission Test', meta: { role: ['admin'] } }]
   },
   { path: '*', redirect: '/404', hidden: true }
 ]
