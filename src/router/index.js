@@ -52,6 +52,7 @@ export const dynamicRouters = [
     meta: { role: ['admin'] },
     children: [{ path: 'index', component: Permission, name: 'Permission Test', meta: { role: ['admin'] } }]
   },
+  
   { path: '*', redirect: '/404', hidden: true }
 ]
 

@@ -1,15 +1,18 @@
 <template>
-  <div id="app">
-    <el-row  v-if="token">
+    <el-row>
       <el-col :span="4" id="sidebar-container">
-         <Sidebar></Sidebar>
+          <div id="sidebar">
+             <Sidebar></Sidebar>
+          </div>
+           
       </el-col>
       <el-col :span="20" id="content-container">
-         <Navbar></Navbar>  
-         <router-view></router-view> 
+         <Navbar></Navbar> 
+         <transition name="el-fade-in"> 
+            <router-view></router-view> 
+         </transition>
       </el-col>
     </el-row>
-  </div>
 </template>
 
 <script>
@@ -30,12 +33,29 @@ export default {
 }
 </script>
 
-<style>
-a{
-  text-decoration: none;
-}
+<style scoped>
+  .el-row{
+    height:100vh;
+  }
+  #sidebar-container{
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
 
-.el-row, .el-row #sidebar-container, .el-row #ontent-container{
-  height: 100vh;
-}
+  #sidebar{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -17px; /* Increase/Decrease this value for cross-browser compatibility */
+    overflow-y: scroll;
+  }
+
+  
+  #content-container{
+      min-height: 100%;
+      transition: all .28s ease-out;
+  }
+
 </style>

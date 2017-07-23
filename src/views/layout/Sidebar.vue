@@ -1,10 +1,7 @@
 <template>
-	
-			<el-menu mode="vertical" theme="dark" :default-active="$route.path">
+	<el-menu mode="vertical" theme="dark" :default-active="$route.path">
 				<sidebar-item :routes='routes'></sidebar-item>
-			</el-menu>
-
-	
+	</el-menu>
 </template>
 <script>
 	import { mapGetters } from 'vuex';

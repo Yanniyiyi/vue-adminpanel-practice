@@ -1,7 +1,13 @@
 <template>
   <div >
-      this is homepage
-      <button @click="changePermission"></button>
+    <el-row>
+      <el-col :span="18">
+        
+      </el-col>
+      <el-col :span="6">
+        
+      </el-col>
+    </el-row> 
   </el-row>
    
     

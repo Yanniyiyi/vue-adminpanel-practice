@@ -1,6 +1,8 @@
 <template>
-  <div id="app">    
+  <div id="app">  
+     <transition name="el-fade-in">  
        <router-view></router-view>
+     </transition> 
   </div> 
 </template>
 
@@ -23,13 +25,7 @@ export default {
 </script>
 
 <style>
-html{
-  height: 100%;
-}
-body{
-  margin:0;
-  height: 100%;
-}
+html, body {margin:0;padding:0;}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -42,7 +38,4 @@ a{
   text-decoration: none;
 }
 
-.el-row, .el-row #sidebar-container, .el-row #ontent-container{
-  height: 100vh;
-}
 </style>
