@@ -8,9 +8,12 @@
       </el-col>
       <el-col :span="20" id="content-container">
          <Navbar></Navbar> 
-         <transition name="el-fade-in"> 
-            <router-view></router-view> 
-         </transition>
+         <div id="content">
+            <transition name="el-fade-in"> 
+              <router-view></router-view> 
+            </transition>
+         </div>
+        
       </el-col>
     </el-row>
 </template>
@@ -51,11 +54,10 @@ export default {
     right: -17px; /* Increase/Decrease this value for cross-browser compatibility */
     overflow-y: scroll;
   }
-
   
   #content-container{
-      min-height: 100%;
-      transition: all .28s ease-out;
+    height: 100vh;
+    overflow-y: scroll;
   }
 
 </style>

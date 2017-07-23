@@ -30,8 +30,5 @@
 	}
 </script>
 <style scoped>
-	.el-menu {
-		min-height: 100%;
-	}
 
 </style>
