@@ -2,7 +2,7 @@
 	<el-row>
 		<el-col :span="24">
 			<div id="components-container">
-			  	<ESchart :option="option"></ESchart>
+			  	<ESchart :option="option" :id="id" v-if="option"></ESchart>
 			</div>
 		</el-col>
 	</el-row>
@@ -10,14 +10,17 @@
 
 <script>
 import ESchart from '../../widgets/chart'
-
+import echarts from 'echarts';
 export default {
+  props:['id'],
   name: 'Linechart',
   components:{
   	'ESchart' : ESchart
   },
-  created(){
-    this.initOption();
+  mounted(){
+    setTimeout(()=>{
+      this.initOption();
+    },1000);
   },
   data(){
     return {
@@ -26,68 +29,121 @@ export default {
   },
   methods:{
     initOption(){
-      this.option = {
-            title: {
-                text: 'linechar'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['Email marketing','Phone marketing','Video Advertise','Immediate visit','Search Engine']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [
-                {
-                    name:'Email marketing',
-                    type:'line',
-                    stack: 'total',
-                    data:[120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name:'Phone marketing',
-                    type:'line',
-                    stack: 'total',
-                    data:[220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name:'Video Advertise',
-                    type:'line',
-                    stack: 'total',
-                    data:[150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name:'Immediate visit',
-                    type:'line',
-                    stack: 'total',
-                    data:[320, 332, 301, 334, 390, 330, 320]
-                },
-                {
-                    name:'Search Engine',
-                    type:'line',
-                    stack: 'total',
-                    data:[820, 932, 901, 934, 1290, 1330, 1320]
-                }
-            ]
-        };
+      let category = [];
+let dottedBase = +new Date();
+let lineData = [];
+let barData = [];
+
+for (let i = 0; i < 20; i++) {
+    let date = new Date(dottedBase += 1000 * 3600 * 24);
+    category.push([
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate()
+    ].join('-'));
+    let b = Math.random() * 200;
+    let d = Math.random() * 200;
+    barData.push(b)
+    lineData.push(d + b);
+}
+
+
+// option
+    this.option = {
+    backgroundColor: '#0f375f',
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow',
+            label: {
+                show: true,
+                backgroundColor: '#333'
+            }
+        }
+    },
+    legend: {
+        data: ['line', 'bar'],
+        textStyle: {
+            color: '#ccc'
+        }
+    },
+    xAxis: {
+        data: category,
+        axisLine: {
+            lineStyle: {
+                color: '#ccc'
+            }
+        }
+    },
+    yAxis: {
+        splitLine: {show: false},
+        axisLine: {
+            lineStyle: {
+                color: '#ccc'
+            }
+        }
+    },
+    series: [{
+        name: 'line',
+        type: 'line',
+        smooth: true,
+        showAllSymbol: true,
+        symbol: 'emptyCircle',
+        symbolSize: 15,
+        data: lineData
+    }, {
+        name: 'bar',
+        type: 'bar',
+        barWidth: 10,
+        itemStyle: {
+            normal: {
+                barBorderRadius: 5,
+                color: new echarts.graphic.LinearGradient(
+                    0, 0, 0, 1,
+                    [
+                        {offset: 0, color: '#14c8d4'},
+                        {offset: 1, color: '#43eec6'}
+                    ]
+                )
+            }
+        },
+        data: barData
+    }, {
+        name: 'line',
+        type: 'bar',
+        barGap: '-100%',
+        barWidth: 10,
+        itemStyle: {
+            normal: {
+                color: new echarts.graphic.LinearGradient(
+                    0, 0, 0, 1,
+                    [
+                        {offset: 0, color: 'rgba(20,200,212,0.5)'},
+                        {offset: 0.2, color: 'rgba(20,200,212,0.2)'},
+                        {offset: 1, color: 'rgba(20,200,212,0)'}
+                    ]
+                )
+            }
+        },
+        z: -12,
+        data: lineData
+    }, {
+        name: 'dotted',
+        type: 'pictorialBar',
+        symbol: 'rect',
+        itemStyle: {
+            normal: {
+                color: '#0f375f'
+            }
+        },
+        symbolRepeat: true,
+        symbolSize: [12, 4],
+        symbolMargin: 1,
+        z: -10,
+        data: lineData
+    }]
+};
+   
 
     }
   }

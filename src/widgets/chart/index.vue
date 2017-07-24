@@ -8,7 +8,7 @@
 		props:{
 			id: {
 				type: String,
-				default: 'es-linechart'
+				default: 'es-chart'
 			},
 			width: {
 				 type: String,
@@ -19,9 +19,11 @@
 				 default: '90vh'
 			},
 			option: {
-				type: Object,
 				required: true
 			}
+   		},
+   		watch:{
+   			'option':'redraw' // it seems that it doesn't work
    		},
 		mounted(){
 			this.initChart();
@@ -45,6 +47,11 @@
 				this.chart = echarts.init(document.getElementById(this.id));
 				// Generate data
 				this.chart.setOption(this.option);
+			},
+			redraw(){
+				if(this.chart){
+					this.chart.setOption(this.option);
+				}
 			}
 		}
 	}

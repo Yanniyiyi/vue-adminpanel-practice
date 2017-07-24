@@ -2,7 +2,7 @@
     <el-row>
         <el-col :span="24">
             <div id="components-container">
-                <ESchart :option="option"></ESchart>
+                <ESchart :option="option" :id="id" v-if="option"></ESchart>
             </div>
         </el-col>
     </el-row>
@@ -12,12 +12,15 @@
 import ESchart from '../../widgets/chart'
 
 export default {
-  name: 'Linechart',
+  props:['id'],
+  name: 'Radarchart',
   components:{
     'ESchart' : ESchart
   },
   created(){
-    this.initOption();
+    setTimeout(()=>{
+      this.initOption();
+    },1000);
   },
   data(){
     return {

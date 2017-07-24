@@ -1,81 +1,234 @@
 <template>
   <div >
-    <el-form ref="form" :model="form" label-width="80px">
-  <el-form-item label="活动名称">
-    <el-input v-model="form.name"></el-input>
-  </el-form-item>
-  <el-form-item label="活动区域">
-    <el-select v-model="form.region" placeholder="请选择活动区域">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
-  </el-form-item>
-  <el-form-item label="活动时间">
-    <el-col :span="11">
-      <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-    </el-col>
-    <el-col class="line" :span="2">-</el-col>
-    <el-col :span="11">
-      <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-    </el-col>
-  </el-form-item>
-  <el-form-item label="即时配送">
-    <el-switch on-text="" off-text="" v-model="form.delivery"></el-switch>
-  </el-form-item>
-  <el-form-item label="活动性质">
-    <el-checkbox-group v-model="form.type">
-      <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-      <el-checkbox label="地推活动" name="type"></el-checkbox>
-      <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-      <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-    </el-checkbox-group>
-  </el-form-item>
-  <el-form-item label="特殊资源">
-    <el-radio-group v-model="form.resource">
-      <el-radio label="线上品牌商赞助"></el-radio>
-      <el-radio label="线下场地免费"></el-radio>
-    </el-radio-group>
-  </el-form-item>
-  <el-form-item label="活动形式">
-    <el-input type="textarea" v-model="form.desc"></el-input>
-  </el-form-item>
-  <el-form-item label-width="80px">
-    <el-button type="primary" @click="onSubmit">立即创建</el-button>
-    <el-button>取消</el-button>
-  </el-form-item>
-</el-form>
-
-  </el-row>
-   
-    
+    <el-row>
+       <el-col :span='12'>
+        <ESchart height="50vh" :option="option1" v-if="option1" id="chart1"></ESchart>
+      </el-col> 
+      <el-col :span='12'>
+        <ESchart height="50vh" :option="option2" v-if="option2" id="chart2"></ESchart>
+      </el-col> 
+    </el-row>
+    <Linechart id="chart3"></Linechart>
   </div>
+
 </template>
 
 <script>
-
+import ESchart from '../../widgets/chart'
+import Linechart from '../Components/Linechart'
 export default {
   name: 'Home',
-   data() {
+  components:{
+    'ESchart':ESchart,
+    'Linechart': Linechart
+  },
+  created(){
+    var id = setTimeout(()=>{
+      this.init();
+      clearTimeout(id);
+    },1000);
+  },
+  data() {
       return {
-        form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        }
+        option1:null,
+        option2:null
       }
-    },
+  },
   methods:{
-  	changePermission(){
-  		this.$store.dispatch('ChangePermission');
-  	},
-      onSubmit() {
-        console.log('submit!');
+    getOption1(){
+      return {
+      title: {
+          text: 'Radar chart'
+      },
+      tooltip: {},
+      legend: {
+          top: 20,
+          itemWidth: 12,
+          itemHeight: 12,
+          data: ['Allocated Budget', 'Actual Spending'],
+          textStyle: {
+              color: '#fff'
+          }
+      },
+      radar: {
+          radius: '60%',
+          splitNumber: 8,
+          axisLine: {
+              lineStyle: {
+                  color: '#fff',
+                  opacity: .2
+              }
+          },
+          splitLine: {
+              lineStyle: {
+                  color: '#fff',
+                  opacity: .2
+              }
+          },
+          splitArea: {
+              areaStyle: {
+                  color: 'rgba(127,95,132,.3)',
+                  opacity: 1,
+                  shadowBlur: 45,
+                  shadowColor: 'rgba(0,0,0,.5)',
+                  shadowOffsetX: 0,
+                  shadowOffsetY: 15,
+              }
+          },
+          indicator: [{
+              name: 'Sales',
+              max: 6000
+          }, {
+              name: 'Administration',
+              max: 16000
+          }, {
+              name: 'Information Techology',
+              max: 30000
+          }, {
+              name: 'Customer Support',
+              max: 35000
+          }, {
+              name: 'Development',
+              max: 50000
+          }, {
+              name: 'Marketing',
+              max: 25000
+          }]
+      },
+      series: [{
+          name: 'Budget vs spending',
+          type: 'radar',
+          symbolSize: 0,
+          areaStyle: {
+              normal: {
+                  shadowBlur: 13,
+                  shadowColor: 'rgba(0,0,0,.2)',
+                  shadowOffsetX: 0,
+                  shadowOffsetY: 10,
+                  opacity: 1
+              }
+          },
+          data: [{
+              value: [5000, 7000, 12000, 11000, 15000, 14000],
+              name: 'Allocated Budget',
+          }, {
+              value: [2500, 12000, 8000, 8500, 12000, 12000],
+              name: 'Actual Spending',
+          }]
+      }],
+      color: ['#ef4b4c', '#b1eadb'],
+      backgroundColor: {
+          type: 'radial',
+          x: 0.4,
+          y: 0.4,
+          r: 0.35,
+          colorStops: [{
+              offset: 0,
+              color: '#895355' // 0% 
+          }, {
+              offset: .4,
+              color: '#593640' // 100% 
+          }, {
+              offset: 1,
+              color: '#39273d' // 100% 
+          }],
+          globalCoord: false //  false
       }
+  };
+    },
+    getOption2(){
+      return {
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            
+            type : 'shadow'       
+        }
+    },
+    legend: {
+        data: ['Immediate visit', 'Email marketing','Phone marketing','Video advertise','Search engine']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis:  {
+        type: 'value'
+    },
+    yAxis: {
+        type: 'category',
+        data: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+    },
+    series: [
+        {
+            name: 'Immediate visit',
+            type: 'bar',
+            stack: 'total',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [320, 302, 301, 334, 390, 330, 320]
+        },
+        {
+            name: 'Email marketing',
+            type: 'bar',
+            stack: 'total',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name: 'Phone marketing',
+            type: 'bar',
+            stack: 'total',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name: 'Video advertise',
+            type: 'bar',
+            stack: 'total',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [150, 212, 201, 154, 190, 330, 410]
+        },
+        {
+            name: 'Search engine',
+            type: 'bar',
+            stack: 'total',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [820, 832, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+    },
+  	init(){
+      // Generate data
+          this.option1 = this.getOption1();
+          this.option2 = this.getOption2();
+    }
 
   },
   computed:{
