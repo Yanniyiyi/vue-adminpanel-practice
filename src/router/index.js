@@ -13,6 +13,9 @@ import Linechart from '@/views/Components/Linechart'
 import Barchart from '@/views/Components/Barchart'
 import Radarchart from '@/views/Components/Radarchart'
 
+// import tabs
+import Tabs from '@/views/Tabs'
+
 
 
 Vue.use(Router)
@@ -24,6 +27,7 @@ export const staticRouters = [
       noDropdown:true,
       redirect:'/index',
       component: Frame,
+      icon:'fa fa-home fa-lg',
       children: [{ path: 'index', component: Home, name: 'Home' }]
     },
     {
@@ -55,7 +59,7 @@ export const dynamicRouters = [
     component: Frame,
     redirect: '/permission/index',
     name: 'Permission',
-    icon: '',
+    icon: 'fa fa-unlock fa-lg',
     meta: { role: ['admin'] },
     noDropdown: false,
     children: [{ path: 'index', component: Permission, name: 'Permission Test', meta: { role: ['admin'] } }]
@@ -64,17 +68,16 @@ export const dynamicRouters = [
     path: '/components',
     component: Frame,
     name: 'Components',
-    icon: '',
+    icon: 'fa fa-cogs fa-lg',
     meta: { role: ['admin'] },
-    children: [{ path: 'markdown', component: Markdown, name: 'Markdown Editor' },
-               
+    children: [{ path: 'markdown', component: Markdown, name: 'Markdown Editor' },       
     ]
     },
     {
     path: '/charts',
     component: Frame,
     name: 'Charts',
-    icon: '',
+    icon: 'fa fa-bar-chart fa-lg',
     meta: { role: ['admin'] },
     children: [{ path: 'linechart', component: Linechart, name: 'Line chart' },
                { path: 'barchart', component: Barchart, name: 'Bar chart' },
@@ -83,10 +86,19 @@ export const dynamicRouters = [
     ]
     },
     {
+    path: '/tabs',
+    component: Frame,
+    icon: 'fa fa-window-restore fa-lg',
+    redirect:'index',
+    noDropdown:true,
+    meta: { role: ['admin'] },
+    children: [{ path: 'index', component: Tabs, name: 'Tabs' }]
+    },
+    {
     path: '/errorpages',
     component: Frame,
     name: 'Error Pages',
-    icon: '',
+    icon: 'fa fa-exclamation-triangle fa-lg',
     meta: { role: ['admin'] },
     children: [{ path: '401', component: NoPermission, name: 'NoPermission 401' },
                { path: '404', component: NotFound, name: 'NotFound 404' }

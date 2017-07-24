@@ -8,7 +8,7 @@
         <ESchart height="50vh" :option="option2" v-if="option2" id="chart2"></ESchart>
       </el-col> 
     </el-row>
-    <Linechart id="chart3"></Linechart>
+    <!-- <Linechart id="chart3"></Linechart> -->
   </div>
 
 </template>
