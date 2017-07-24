@@ -13,8 +13,12 @@ import Linechart from '@/views/Components/Linechart'
 import Barchart from '@/views/Components/Barchart'
 import Radarchart from '@/views/Components/Radarchart'
 
+
 // import tabs
 import Tabs from '@/views/Tabs'
+
+// import tables
+import inlineedit from '@/views/Tables/inlineedit'
 
 
 
@@ -71,6 +75,15 @@ export const dynamicRouters = [
     icon: 'fa fa-cogs fa-lg',
     meta: { role: ['admin'] },
     children: [{ path: 'markdown', component: Markdown, name: 'Markdown Editor' },       
+    ]
+    },
+    {
+    path: '/tables',
+    component: Frame,
+    name: 'Tables',
+    icon: 'fa fa-table fa-lg',
+    meta: { role: ['admin'] },
+    children: [{ path: 'inlineedit', component: inlineedit, name: 'Inline edit' },       
     ]
     },
     {
