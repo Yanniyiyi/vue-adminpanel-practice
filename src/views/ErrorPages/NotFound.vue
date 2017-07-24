@@ -1,25 +1,48 @@
 <template>
-  <div class="404-container">
-  			<h2>Page not found</h2>
-  			<el-button type="primary"><a href="/">Back</a></el-button>
+  <div class="cont_principal">
+  	<div class="cont_error"> 
+  	  <h1>Oops</h1>  
+  	  <p>The page you are looking for is not there.</p>
+      <el-button type="primary"><a href="/">Back to home</a></el-button>
+  	</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PageNotfound'
+  name: 'NoPermission'
 }
 </script>
 
 <style scoped>
-.404-container{
-	height:100%;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
+.cont_principal {
+  height: 100%;
+  width:100%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cont_error {
+  text-align: center;
+  width: 100%;
+  height: 300px;
 }
 
-.404-container h2{
-	margin: 0px;
+.cont_error > h1  {
+  font-family: 'Lato', sans-serif;  
+  font-weight: 400;
+  font-size:150px;
+  margin: 0 auto;
+  color:#9294AE;
 }
+
+.cont_error > p  {
+  font-family: 'Lato', sans-serif;  
+  font-weight: 300;
+  font-size:24px;
+  letter-spacing: 5px;
+  color:#9294AE;
+}
+
 </style>

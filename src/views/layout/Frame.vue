@@ -7,10 +7,10 @@
            
       </el-col>
       <el-col :span="20" id="content-container">
-         <Navbar></Navbar> 
-         <div id="content">      
-              <router-view></router-view> 
-         </div>
+         <Navbar></Navbar>
+         <div id="content">
+            <router-view></router-view> 
+         </div> 
         
       </el-col>
     </el-row>
@@ -56,6 +56,14 @@ export default {
   #content-container{
     height: 100vh;
     overflow-y: scroll;
+    box-sizing: border-box;
+
+  }
+
+  #content{
+    box-sizing: border-box;
+    height: calc(100vh - 100px);
+    margin:20px;
   }
 
 </style>
