@@ -7,6 +7,13 @@ import NoPermission from '@/views/ErrorPages/NoPermission'
 import NotFound from '@/views/ErrorPages/NotFound'
 import Frame from '@/views/layout/Frame'
 
+// import components
+import Markdown from '@/views/Components/Markdown'
+import Linechart from '@/views/Components/Linechart'
+import Barchart from '@/views/Components/Barchart'
+import Radarchart from '@/views/Components/Radarchart'
+
+
 
 Vue.use(Router)
 
@@ -50,9 +57,42 @@ export const dynamicRouters = [
     name: 'Permission',
     icon: '',
     meta: { role: ['admin'] },
+    noDropdown: false,
     children: [{ path: 'index', component: Permission, name: 'Permission Test', meta: { role: ['admin'] } }]
   },
-  
+  {
+    path: '/components',
+    component: Frame,
+    name: 'Components',
+    icon: '',
+    meta: { role: ['admin'] },
+    children: [{ path: 'markdown', component: Markdown, name: 'Markdown Editor' },
+               
+    ]
+    },
+    {
+    path: '/charts',
+    component: Frame,
+    name: 'Charts',
+    icon: '',
+    meta: { role: ['admin'] },
+    children: [{ path: 'linechart', component: Linechart, name: 'Line chart' },
+               { path: 'barchart', component: Barchart, name: 'Bar chart' },
+               { path: 'radarchart', component: Radarchart, name: 'Radar chart' },
+               
+    ]
+    },
+    {
+    path: '/errorpages',
+    component: Frame,
+    name: 'Error Pages',
+    icon: '',
+    meta: { role: ['admin'] },
+    children: [{ path: '401', component: NoPermission, name: 'NoPermission 401' },
+               { path: '404', component: NotFound, name: 'NotFound 404' }
+    ]
+    },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

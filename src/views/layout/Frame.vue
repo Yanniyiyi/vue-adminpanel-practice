@@ -8,10 +8,8 @@
       </el-col>
       <el-col :span="20" id="content-container">
          <Navbar></Navbar> 
-         <div id="content">
-            <transition name="el-fade-in"> 
+         <div id="content">      
               <router-view></router-view> 
-            </transition>
          </div>
         
       </el-col>

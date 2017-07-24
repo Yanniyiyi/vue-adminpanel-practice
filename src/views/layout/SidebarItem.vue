@@ -9,7 +9,7 @@
 			<el-submenu :index="item.name" v-if="!item.noDropdown
 			&& !item.hidden ">
 				<template slot="title">
-					{{ item.name }}  
+					{{ item.name }} 
 				</template>
 				<template v-for="child in item.children" v-if="!child.hidden">
 					<sidebar-item v-if="child.children &&child.children.length > 0" :routes="[child]"
