@@ -70,6 +70,7 @@ export default {
     menubar
   },
   mounted(){
+    console.log('mounted called');
     let _this = this;
   	tinymce.init({
         selector: '#' + this.id,
@@ -111,7 +112,7 @@ export default {
   // 	}
   // },
   destroyed() {
-      this.simplemde = null;
+     tinymce.get(this.id).destroy();
   }
 }
 </script>
