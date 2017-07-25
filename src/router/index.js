@@ -12,13 +12,15 @@ import Markdown from '@/views/Components/Markdown'
 import Linechart from '@/views/Components/Linechart'
 import Barchart from '@/views/Components/Barchart'
 import Radarchart from '@/views/Components/Radarchart'
+import Richtext from '@/views/Components/Richtext'
 
 
 // import tabs
 import Tabs from '@/views/Tabs'
 
 // import tables
-import inlineedit from '@/views/Tables/inlineedit'
+import Inlineedit from '@/views/Tables/Inlineedit'
+import Dynamic from '@/views/Tables/Dynamic'
 
 
 
@@ -75,6 +77,7 @@ export const dynamicRouters = [
     icon: 'fa fa-cogs fa-lg',
     meta: { role: ['admin'] },
     children: [{ path: 'markdown', component: Markdown, name: 'Markdown Editor' },       
+    { path: 'richtext', component: Richtext, name: 'Richtext Editor' },       
     ]
     },
     {
@@ -83,7 +86,8 @@ export const dynamicRouters = [
     name: 'Tables',
     icon: 'fa fa-table fa-lg',
     meta: { role: ['admin'] },
-    children: [{ path: 'inlineedit', component: inlineedit, name: 'Inline edit' },       
+    children: [{ path: 'inlineedit', component: Inlineedit, name: 'Inline edit' },
+    { path: 'dynamic', component: Dynamic, name: 'Dynamic' },       
     ]
     },
     {
