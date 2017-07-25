@@ -9,10 +9,15 @@ import Frame from '@/views/layout/Frame'
 
 // import components
 import Markdown from '@/views/Components/Markdown'
+import Richtext from '@/views/Components/Richtext'
+import Draggablelist from '@/views/Components/Draggablelist'
+
+// import charts
 import Linechart from '@/views/Components/Linechart'
 import Barchart from '@/views/Components/Barchart'
 import Radarchart from '@/views/Components/Radarchart'
-import Richtext from '@/views/Components/Richtext'
+
+
 
 
 // import tabs
@@ -77,7 +82,8 @@ export const dynamicRouters = [
     icon: 'fa fa-cogs fa-lg',
     meta: { role: ['admin'] },
     children: [{ path: 'markdown', component: Markdown, name: 'Markdown Editor' },       
-    { path: 'richtext', component: Richtext, name: 'Richtext Editor' },       
+    { path: 'richtext', component: Richtext, name: 'Richtext Editor' },  
+    { path: 'draggable', component: Draggablelist, name: 'Draggable List' },       
     ]
     },
     {
