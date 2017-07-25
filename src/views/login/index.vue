@@ -15,7 +15,9 @@
     </el-form>
     <div>
         <ul>
-          <li>Email could be any valid email address</li>
+          <li>Emails: admin@test.com, editor@test.com</li>
+          <li>admin@test.com could access all pages</li>
+          <li>editor@test.com can see homepage only</li>
           <li>Password is anything you like but at least 6 digits</li>
        </ul>
     </div>
