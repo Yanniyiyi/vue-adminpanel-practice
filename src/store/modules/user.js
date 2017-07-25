@@ -65,9 +65,13 @@ const user = {
 				if(email === 'admin@test.com'){
 					console.log('admin logged in');
 					loginByEmailAdmin(email,userInfo.passowrd).then(response => {
-						const data = response.data;
-						Cookies.set('My-Token',response.data.token);
-						commit('SET_TOKEN',data.token);
+						// comment below due to github issue, can not send http request
+						//	const data = response.data;
+			
+						//Cookies.set('My-Token',response.data.token);
+						//commit('SET_TOKEN',data.token);
+						Cookies.set('My-Token','admin');
+						commit('SET_TOKEN','admin');
 						resolve();
 					}).catch(error => {
 						reject(error);
@@ -76,9 +80,13 @@ const user = {
 
 				if(email === 'editor@test.com'){
 					loginByEmailEditor(email,userInfo.passowrd).then(response => {
-						const data = response.data;
-						Cookies.set('My-Token',response.data.token);
-						commit('SET_TOKEN',data.token);
+						// comment below due to github issue, can not send http request
+					//	const data = response.data;
+						
+						//Cookies.set('My-Token',response.data.token);
+						//commit('SET_TOKEN',data.token);
+						Cookies.set('My-Token','editor');
+						commit('SET_TOKEN','editor');
 						resolve();
 					}).catch(error => {
 						reject(error);
@@ -103,11 +111,17 @@ const user = {
 				// those two methods are using is because I am using fake api
 				if(state.token === 'admin'){
 					getUserInfoAdmin(state.token).then((response) => {
-						const data = response.data;
-						commit('SET_NAME',data.name);
-						commit('SET_AVATAR',data.avatar);
-						commit('SET_ROLES', data.roles);
-						resolve(data);
+						// comment below due to github issue, can not send http request
+						//const data = response.data;
+
+						// commit('SET_NAME',data.name);
+						// commit('SET_AVATAR',data.avatar);
+						// commit('SET_ROLES', data.roles);
+						// resolve(data);
+						commit('SET_NAME','Yi');
+						commit('SET_AVATAR','');
+						commit('SET_ROLES', ['admin']);
+						resolve({name:'Yi',avatar:'',roles:['admin']});
 					}).catch((error)=>{
 						reject(error);
 					});
@@ -115,11 +129,16 @@ const user = {
 
 				if(state.token === 'editor'){
 					getUserInfoEditor(state.token).then((response) => {
-						const data = response.data;
-						commit('SET_NAME',data.name);
-						commit('SET_AVATAR',data.avatar);
-						commit('SET_ROLES', data.roles);
-						resolve(data);
+						// comment below due to github issue, can not send http request
+						//const data = response.data;
+						// commit('SET_NAME',data.name);
+						// commit('SET_AVATAR',data.avatar);
+						// commit('SET_ROLES', data.roles);
+						// resolve(data);
+						commit('SET_NAME','Yi');
+						commit('SET_AVATAR','');
+						commit('SET_ROLES', ['editor']);
+						resolve({name:'Yi',avatar:'',roles:['editor']});
 					}).catch((error)=>{
 						reject(error);
 					});
