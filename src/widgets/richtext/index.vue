@@ -90,9 +90,9 @@ export default {
           { title: 'Test template 2', content: 'Test 2' }
         ],
         setup: function(editor) {
-          editor.on('change', function(e) {
+          editor.on('NodeChange Change KeyUp', function() {
            //   _this.value = e.target.getContent();
-              _this.$emit('input', e.target.getContent());
+              _this.$emit('input', editor.getContent({ format: 'raw' }));
         });
     }
     });
